@@ -1,10 +1,11 @@
+import { SelectedPage } from '@/shared/types';
 import React from 'react'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 interface Props {
     page: string;
-    selectedPage: string;
-    setSelectedPage: (value: string) => void;
+    selectedPage: SelectedPage;
+    setSelectedPage: (value: SelectedPage) => void;
 }
 
 const Link = ({page,
@@ -12,14 +13,14 @@ const Link = ({page,
     setSelectedPage,
 
 }: Props) => {
-   const lowerCasePage = page.toLowerCase().replace(/ /g, "")
+   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage
+//    as keyword does is that it tells typescript to treat something as whatever comes after as keyword
   return (
    <AnchorLink className={`${selectedPage === lowerCasePage ? "text-primary-500" : ""} 
    transition duration-500 hover:text-primary-300
    `} 
    href={`#${lowerCasePage}`}
-   onClick={setSelectedPage}>
-   
+   onClick={() => setSelectedPage(lowerCasePage)}>
     {page}
    </AnchorLink>
   )
